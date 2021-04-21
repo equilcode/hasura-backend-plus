@@ -103,7 +103,7 @@ export const selectAccountByEmail = gql`
 
 export const selectAccountByTicket = gql`
   query($ticket: uuid!) {
-    auth_accounts(where: { ticket: { _eq: $ticket } }) {
+    auth_accounts(where: { _and: [{ ticket: { _eq: $ticket } }, { ticket_expires_at: { _gt: $now } }] }) {
       ...accountFragment
     }
   }
